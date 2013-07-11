@@ -20,7 +20,7 @@ class AntiDogPileDriver implements Cache
 	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::contains()
 	 */
-    public function contains($id)
+    public function contains($key)
     {
         // TODO Auto-generated method stub
         
@@ -30,7 +30,7 @@ class AntiDogPileDriver implements Cache
 	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::delete()
 	 */
-    public function delete($id)
+    public function delete($key)
     {
         // TODO Auto-generated method stub
         
@@ -40,7 +40,7 @@ class AntiDogPileDriver implements Cache
 	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::fetch()
 	 */
-    public function fetch($id)
+    public function fetch($key)
     {
         // TODO Auto-generated method stub
         
@@ -59,9 +59,9 @@ class AntiDogPileDriver implements Cache
 	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::save()
 	 */
-    public function save($id, $data, $lifeTime = 0)
+    public function save($key, $data, $lifeTime = 0)
     {
-		return $this->getProvider()->save($id, $data, $lifeTime);        
+		return $this->getProvider()->save($key, $data, $lifeTime);        
     }
     
     /**
