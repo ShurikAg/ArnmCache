@@ -1,0 +1,16 @@
+{
+    "name": "iibs/arnm-cache",
+    "description": "Cache library based on doctrine cache",
+    "version": "1.0.0-beta",
+    "authors": [
+        {
+            "name": "Alex Agulyansky",
+            "email": "alex@iibspro.com",
+            "homepage": "http://www.iibspro.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "doctrine/cache": "*"
+    }
+}
