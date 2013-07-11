@@ -11,6 +11,11 @@ use Doctrine\Common\Cache\Cache;
 class AntiDogPileDriver implements Cache
 {
 	/**
+	 * @var Cache
+	 */
+	private $provider;
+	
+	/**
 	 * (non-PHPdoc)
 	 * @see Doctrine\Common\Cache.Cache::contains()
 	 */
@@ -46,8 +51,7 @@ class AntiDogPileDriver implements Cache
 	 */
     public function getStats()
     {
-        // TODO Auto-generated method stub
-        
+        return $this->getProvider()->getStats();
     }
 
 	/**
@@ -56,7 +60,45 @@ class AntiDogPileDriver implements Cache
 	 */
     public function save($id, $data, $lifeTime = 0)
     {
-        // TODO Auto-generated method stub
-        
+		return $this->getProvider()->save($id, $data, $lifeTime);        
+    }
+    
+    /**
+     * Provide defaul proxy methid for allthe rest of the method that have not been specifically implemented
+     * 
+     * @param string $name
+     * @param array $arguments
+     * 
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+    	$provider = $this->getProvider();
+    	if(!method_exists($provider, $name))
+    	{
+    		throw new \RuntimeException("Call to undefined method ".__CLASS__.":".$name);
+    	}
+    	
+    	return call_user_func_array(array($provider, $name), $arguments);
+    }
+    
+    /**
+     * Sets cache provider
+     * 
+     * @param Cache $cache
+     */
+    public function setProvider(Cache $cache)
+    {
+    	$this->provider = $cache;
+    }
+    
+    /**
+     * Gets cache provider object
+     * 
+     * @return Cache
+     */
+    public function getProvider() 
+    {
+    	return $this->provider;
     }
 }
