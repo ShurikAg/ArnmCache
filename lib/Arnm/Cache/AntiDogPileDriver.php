@@ -10,13 +10,14 @@ use Doctrine\Common\Cache\Cache;
  */
 class AntiDogPileDriver implements Cache
 {
+	
 	/**
 	 * @var Cache
 	 */
 	private $provider;
 	
 	/**
-	 * (non-PHPdoc)
+	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::contains()
 	 */
     public function contains($id)
@@ -26,7 +27,7 @@ class AntiDogPileDriver implements Cache
     }
 
 	/**
-	 * (non-PHPdoc)
+	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::delete()
 	 */
     public function delete($id)
@@ -36,7 +37,7 @@ class AntiDogPileDriver implements Cache
     }
 
 	/**
-	 * (non-PHPdoc)
+	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::fetch()
 	 */
     public function fetch($id)
@@ -46,7 +47,7 @@ class AntiDogPileDriver implements Cache
     }
 
 	/**
-	 * (non-PHPdoc)
+	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::getStats()
 	 */
     public function getStats()
@@ -55,7 +56,7 @@ class AntiDogPileDriver implements Cache
     }
 
 	/**
-	 * (non-PHPdoc)
+	 * {@inheritdoc}
 	 * @see Doctrine\Common\Cache.Cache::save()
 	 */
     public function save($id, $data, $lifeTime = 0)
