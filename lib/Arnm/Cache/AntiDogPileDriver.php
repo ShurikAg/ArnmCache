@@ -10,6 +10,10 @@ use Doctrine\Common\Cache\Cache;
  */
 class AntiDogPileDriver implements Cache
 {
+	const MAIN_SUFFIX = ':main';
+	const MAIN_LIFETIME = 86400;
+	const LOCK_SUFFIX = ':lock';
+	const LOCK_LIFETIEM = 10;
 	
 	/**
 	 * @var Cache
