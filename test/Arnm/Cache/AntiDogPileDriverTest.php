@@ -153,5 +153,35 @@ class AntiDogPileDriverTest extends \PHPUnit_Framework_TestCase
         $wrapper->lock('lock');
         $wrapper->unlock('lock');
     }
+
+    public function testFetch()
+    {
+        $cache = $this->getMock('Doctrine\Common\Cache\ArrayCache', array('fetch', 'contains'), array(), '', false);
+        //in case that the main key is still valid
+        $cache->expects($this->at(0))
+            ->method('contains')
+            ->with($this->equalTo('key'.AntiDogPileDriver::LOCK_SUFFIX))
+            ->will($this->returnValue(false));
+        $cache->expects($this->at(1))
+            ->method('fetch')
+            ->with($this->equalTo('key'))
+            ->will($this->returnValue('value'));
+        //in case that the key is locked (means that somebody regenerates the cache at the time)
+        //but the stale still available
+        $cache->expects($this->at(2))
+            ->method('contains')
+            ->with($this->equalTo('key'.AntiDogPileDriver::LOCK_SUFFIX))
+            ->will($this->returnValue(true));
+        $cache->expects($this->at(3))
+            ->method('fetch')
+            ->with($this->equalTo('key'.AntiDogPileDriver::STALE_SUFFIX))
+            ->will($this->returnValue('stale_value'));
+
+        $wrapper = new AntiDogPileDriver();
+        $wrapper->setProvider($cache);
+
+        $this->assertEquals('value', $wrapper->fetch('key'));
+        $this->assertEquals('stale_value', $wrapper->fetch('key'));
+    }
 }
 

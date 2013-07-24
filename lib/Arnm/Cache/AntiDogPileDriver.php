@@ -60,8 +60,19 @@ class AntiDogPileDriver implements Cache
 	 */
     public function fetch($key)
     {
-        // TODO Auto-generated method stub
+        $cachedValue = null;
 
+        $provider = $this->getProvider();
+        //check if the key is locked
+        //if it is, that means that someonce regenerates the cache
+        //Stale cache value should be taken
+        if($this->isLocked($key)) {
+            $cachedValue = $provider->fetch($this->getStaleKey($key));
+        } else {
+            $cachedValue = $provider->fetch($key);
+        }
+
+        return $cachedValue;
     }
 
 	/**
