@@ -1,6 +1,8 @@
 {
     "name": "iibs/arnm-cache",
+    "type": "library",
     "description": "Cache library based on doctrine cache",
+    "keywords": ["cache", "caching"],
     "version": "1.0.0-beta",
     "authors": [
         {
@@ -12,5 +14,8 @@
     "require": {
         "php": ">=5.3.3",
         "doctrine/cache": "*"
+    },
+    "autoload": {
+        "psr-0": { "Arnm\\Cache\\": "lib/" }
     }
 }
